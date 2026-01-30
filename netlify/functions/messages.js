@@ -2,11 +2,11 @@ let messages = [];
 
 exports.handler = async (event) => {
   if (event.httpMethod === "POST") {
-    const body = JSON.parse(event.body);
+    const data = JSON.parse(event.body);
 
     messages.push({
-      username: body.username || "Discord",
-      content: body.content || "",
+      user: data.user,
+      content: data.content,
       time: new Date().toISOString()
     });
 
@@ -23,8 +23,5 @@ exports.handler = async (event) => {
     };
   }
 
-  return {
-    statusCode: 405,
-    body: "Method Not Allowed"
-  };
+  return { statusCode: 405 };
 };
